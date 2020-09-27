@@ -1,26 +1,37 @@
 {
   "name": "admin-panel",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "private": true,
+  "repository": "https://github.com/Corniland/admin-panel.git",
+  "license": "MIT",
+  "scripts": {
+    "serve": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint . --quiet",
+    "lint:fix": "npm run lint -- --fix"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "prop-types": "^15.7.2",
-    "ra-data-json-server": "^3.8.5",
+    "ra-data-json-server": "next",
     "react": "^16.13.1",
-    "react-admin": "^3.8.5",
+    "react-admin": "next",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+  "devDependencies": {
+    "@types/node": "^14.11.2",
+    "@types/react": "^16.9.49",
+    "@types/react-dom": "^16.9.8",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.1.2",
+    "typescript": "^4.0.3"
   },
   "browserslist": {
     "production": [
@@ -33,5 +44,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "prettier": {
+    "endOfLine": "auto",
+    "printWidth": 120,
+    "singleQuote": false,
+    "tabWidth": 2,
+    "useTabs": false
   }
 }
