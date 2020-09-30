@@ -5,7 +5,7 @@ import LengthField from "../../fields/length-field";
 import UserShow from "./show";
 
 const UsersList: FC<ListProps> = (props) => (
-  <List {...props} pagination={<Pagination rowsPerPageOptions={[100]} />}>
+  <List {...props} pagination={<Pagination rowsPerPageOptions={[100]} />} bulkActionButtons={false}>
     <Datagrid rowClick="expand" expand={<UserShow id="" basePath="" />}>
       <TextField source="id" sortable={false} />
       <EmailField source="email" sortable={false} />
