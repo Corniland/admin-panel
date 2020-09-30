@@ -20,7 +20,9 @@ export default {
     },
 
     getOne: (resource: string, params: GetOneParams) => {
-        return httpClient(`${apiUrl}/${resource}/${params.id}`).then(({ json }) => ({
+        const url = `${apiUrl}/${resource}/${params.id}`;
+
+        return httpClient(url).then(({ json }) => ({
             data: json,
         }));
     },
@@ -66,42 +68,53 @@ export default {
         });
     },
 
-    update: (resource: string, params: UpdateParams) =>
-        httpClient(`${apiUrl}/${resource}/${params.id}`, {
-            method: 'PUT',
-            body: JSON.stringify(params.data),
-        }).then(({ json }) => ({ data: json })),
+    update: (resource: string, params: UpdateParams) => {
+        const url = `${apiUrl}/${resource}/${params.id}`;
 
-    updateMany: (resource: string, params: UpdateManyParams) => {
-        const query = {
-            filter: JSON.stringify({ id: params.ids }),
-        };
-
-        return httpClient(`${apiUrl}/${resource}?${stringify(query)}`, {
+        return httpClient(url, {
             method: 'PUT',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({ data: json }));
     },
 
-    create: (resource: string, params: CreateParams) =>
-        httpClient(`${apiUrl}/${resource}`, {
+    updateMany: (resource: string, params: UpdateManyParams) => {
+        const query = {
+            filter: JSON.stringify({ id: params.ids }),
+        };
+        const url = `${apiUrl}/${resource}?${stringify(query)}`;
+
+        return httpClient(url, {
+            method: 'PUT',
+            body: JSON.stringify(params.data),
+        }).then(({ json }) => ({ data: json }));
+    },
+
+    create: (resource: string, params: CreateParams) => {
+        const url = `${apiUrl}/${resource}`;
+
+        return httpClient(url, {
             method: 'POST',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({
             data: { ...params.data, id: json.id },
-        })),
+        }));
+    },
 
-    delete: (resource: string, params: DeleteParams) =>
-        httpClient(`${apiUrl}/${resource}/${params.id}`, {
+    delete: (resource: string, params: DeleteParams) => {
+        const url = `${apiUrl}/${resource}/${params.id}`;
+
+        return httpClient(url, {
             method: 'DELETE',
-        }).then(({ json }) => ({ data: json })),
+        }).then(() => ({ data: {} } as any));
+    },
 
     deleteMany: (resource: string, params: DeleteManyParams) => {
         const query = {
             filter: JSON.stringify({ id: params.ids }),
         };
+        const url = `${apiUrl}/${resource}?${stringify(query)}`;
 
-        return httpClient(`${apiUrl}/${resource}?${stringify(query)}`, {
+        return httpClient(url, {
             method: 'DELETE',
             body: JSON.stringify(params.ids),
         }).then(({ json }) => ({ data: json }));

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { FC } from "react";
-import { List, Datagrid, TextField, EmailField, ListProps, BooleanField, Pagination } from "react-admin";
+import { List, Datagrid, TextField, EmailField, ListProps, BooleanField, Pagination, DeleteButton } from "react-admin";
 import LengthField from "../../fields/length-field";
 import UserShow from "./show";
 
@@ -13,6 +13,7 @@ const UsersList: FC<ListProps> = (props) => (
       <LengthField source="liked_projects" sortable={false} />
       <BooleanField source="private_profile" sortable={false} />
       <BooleanField source="banned" sortable={false} />
+      <DeleteButton />
     </Datagrid>
   </List>
 );
