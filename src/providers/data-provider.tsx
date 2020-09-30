@@ -19,17 +19,37 @@ export default {
         });
     },
 
-    getOne: (resource: string, params: GetOneParams) =>
-        httpClient(`${apiUrl}/${resource}/${params.id}`).then(({ json }) => ({
+    getOne: (resource: string, params: GetOneParams) => {
+        return httpClient(`${apiUrl}/${resource}/${params.id}`).then(({ json }) => ({
             data: json,
-        })),
+        }));
+    },
 
     getMany: (resource: string, params: GetManyParams) => {
-        const query = {
-            filter: JSON.stringify({ id: params.ids }),
-        };
-        const url = `${apiUrl}/${resource}?${stringify(query)}`;
-        return httpClient(url).then(({ json }) => ({ data: json }));
+        const url = `${apiUrl}/${resource}`;
+        const { ids } = params;
+
+        return httpClient(url).then(({ headers, json }) => {
+            const totalCountHeader = headers.get('x-total-count');
+            const total = totalCountHeader ? parseInt(totalCountHeader, 10) : json.length;
+
+            return {
+                data: json,
+                total,
+            };
+        }).then(({ data, total }) => {
+            let matchingRecords = [];
+
+            for (let record of data) {
+                if (ids.includes(record.id)) {
+                    matchingRecords.push(record);
+                }
+            }
+
+            return {
+                data: matchingRecords,
+            }
+        });
     },
 
     getManyReference: (resource: string, params: GetManyReferenceParams) => {
