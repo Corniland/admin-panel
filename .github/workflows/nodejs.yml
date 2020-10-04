@@ -2,7 +2,7 @@ name: Node CI
 
 on:
   push:
-    branches: [ master ]
+    pull_request: [ master ]
 
 jobs:
   build:
