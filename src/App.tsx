@@ -1,6 +1,7 @@
 import * as React from "react";
-import { Admin, Resource, ShowGuesser } from "react-admin";
+import { Admin, Resource } from "react-admin";
 import UsersList from "./resources/users/list";
+import ProjectsList from "./resources/projects/list";
 import dataProvider from "./providers/data-provider"
 
 import "./App.css";
@@ -10,9 +11,11 @@ const App = () => (
     <Resource
       name="users"
       list={UsersList}
-      show={ShowGuesser}
     />
-    <Resource name="projects" />
+    <Resource
+      name="projects"
+      list={ProjectsList}
+    />
   </Admin>
 );
 
