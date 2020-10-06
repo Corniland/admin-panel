@@ -14,15 +14,15 @@
   "dependencies": {
     "prop-types": "^15.7.2",
     "query-string": "^6.13.4",
-    "ra-data-json-server": "next",
+    "ra-data-json-server": "3.9.2",
     "react": "^16.13.1",
-    "react-admin": "next",
+    "react-admin": "3.9.2",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3"
   },
   "devDependencies": {
     "@types/node": "^14.11.2",
-    "@types/react": "^16.9.49",
+    "@types/react": "^16.9.50",
     "@types/react-dom": "^16.9.8",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.12.0",
