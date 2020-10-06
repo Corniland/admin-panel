@@ -1,122 +1,98 @@
-import { CreateParams, DeleteManyParams, DeleteParams, fetchUtils, GetListParams, GetManyParams, GetManyReferenceParams, GetOneParams, UpdateManyParams, UpdateParams } from 'react-admin';
-import { stringify } from 'query-string';
+import { CreateParams, DeleteManyParams, DeleteParams, GetListParams, GetManyParams, GetManyReferenceParams, GetOneParams, UpdateManyParams, UpdateParams } from 'react-admin';
+import fetchApi from '../utils/fetchApi'
 
-const apiUrl = `${process.env.REACT_APP_SERVER_ENDPOINT}${process.env.REACT_APP_API_ROUTE}`;
-const httpClient = fetchUtils.fetchJson;
 
 export default {
-    getList: (resource: string, params: GetListParams) => {
-        const url = `${apiUrl}/${resource}`;
+    getList: async (resource: string, params: GetListParams) => {
+        const { headers, json } = await fetchApi.get(`/${resource}`);
 
-        return httpClient(url).then(({ headers, json }) => {
-            const totalCountHeader = headers.get('x-total-count');
-            const total = totalCountHeader ? parseInt(totalCountHeader, 10) : json.length;
+        const totalCountHeader = headers.get('x-total-count');
+        const total = totalCountHeader ? parseInt(totalCountHeader, 10) : json.length;
 
-            return {
-                data: json,
-                total,
-            };
-        });
-    },
-
-    getOne: (resource: string, params: GetOneParams) => {
-        const url = `${apiUrl}/${resource}/${params.id}`;
-
-        return httpClient(url).then(({ json }) => ({
+        return {
             data: json,
-        }));
+            total,
+        };
     },
 
-    getMany: (resource: string, params: GetManyParams) => {
-        const url = `${apiUrl}/${resource}`;
+    getOne: async (resource: string, params: GetOneParams) => {
+        const { json } = await fetchApi.get(`/${resource}/${params.id}`);
+
+        return {
+            data: json,
+        };
+    },
+
+    getMany: async (resource: string, params: GetManyParams) => {
         const { ids } = params;
+        const { json } = await fetchApi.get(`/${resource}`);
 
-        return httpClient(url).then(({ headers, json }) => {
-            const totalCountHeader = headers.get('x-total-count');
-            const total = totalCountHeader ? parseInt(totalCountHeader, 10) : json.length;
+        let matchingRecords = [];
 
-            return {
-                data: json,
-                total,
-            };
-        }).then(({ data, total }) => {
-            let matchingRecords = [];
-
-            for (let record of data) {
-                if (ids.includes(record.id)) {
-                    matchingRecords.push(record);
-                }
+        for (let record of json) {
+            if (ids.includes(record.id)) {
+                matchingRecords.push(record);
             }
+        }
 
-            return {
-                data: matchingRecords,
+        return {
+            data: matchingRecords,
+        };
+    },
+
+    getManyReference: async (resource: string, params: GetManyReferenceParams) => {
+        const { headers, json } = await fetchApi.get(`/${resource}`);
+
+        const totalCountHeader = headers.get('x-total-count');
+        const total = totalCountHeader ? parseInt(totalCountHeader, 10) : json.length;
+
+        return {
+            data: json,
+            total,
+        };
+    },
+
+    update: async (resource: string, params: UpdateParams) => {
+        const { json } = await fetchApi.put(`/${resource}/${params.id}`);
+
+        return {
+            data: json,
+        };
+    },
+
+    updateMany: async (resource: string, params: UpdateManyParams) => {
+        const { json } = await fetchApi.put(`/${resource}/`);
+
+        return {
+            data: json,
+        };
+    },
+
+    create: async (resource: string, params: CreateParams) => {
+        const { json } = await fetchApi.post(
+            `/${resource}`,
+            {
+                body: JSON.stringify(params.data),
             }
-        });
-    },
+        );
 
-    getManyReference: (resource: string, params: GetManyReferenceParams) => {
-        const url = `${apiUrl}/${resource}`;
-
-        return httpClient(url).then(({ headers, json }) => {
-            const totalCountHeader = headers.get('x-total-count');
-            const total = totalCountHeader ? parseInt(totalCountHeader, 10) : json.length;
-
-            return {
-                data: json,
-                total,
-            };
-        });
-    },
-
-    update: (resource: string, params: UpdateParams) => {
-        const url = `${apiUrl}/${resource}/${params.id}`;
-
-        return httpClient(url, {
-            method: 'PUT',
-            body: JSON.stringify(params.data),
-        }).then(({ json }) => ({ data: json }));
-    },
-
-    updateMany: (resource: string, params: UpdateManyParams) => {
-        const query = {
-            filter: JSON.stringify({ id: params.ids }),
+        return {
+            data: {
+                ...params.data,
+                id: json.id
+            },
         };
-        const url = `${apiUrl}/${resource}?${stringify(query)}`;
-
-        return httpClient(url, {
-            method: 'PUT',
-            body: JSON.stringify(params.data),
-        }).then(({ json }) => ({ data: json }));
     },
 
-    create: (resource: string, params: CreateParams) => {
-        const url = `${apiUrl}/${resource}`;
+    delete: async (resource: string, params: DeleteParams) => {
+        await fetchApi.delete(`/${resource}/${params.id}`);
 
-        return httpClient(url, {
-            method: 'POST',
-            body: JSON.stringify(params.data),
-        }).then(({ json }) => ({
-            data: { ...params.data, id: json.id },
-        }));
+        return { data: {} } as any;
     },
 
-    delete: (resource: string, params: DeleteParams) => {
-        const url = `${apiUrl}/${resource}/${params.id}`;
+    deleteMany: async (resource: string, params: DeleteManyParams) => {
+        await fetchApi.delete(`/${resource}/`);
 
-        return httpClient(url, {
-            method: 'DELETE',
-        }).then(() => ({ data: {} } as any));
-    },
-
-    deleteMany: (resource: string, params: DeleteManyParams) => {
-        const query = {
-            filter: JSON.stringify({ id: params.ids }),
-        };
-        const url = `${apiUrl}/${resource}?${stringify(query)}`;
-
-        return httpClient(url, {
-            method: 'DELETE',
-            body: JSON.stringify(params.ids),
-        }).then(({ json }) => ({ data: json }));
+        return { data: {} } as any;
     }
 };
