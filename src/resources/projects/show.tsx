@@ -1,15 +1,22 @@
 import { TitleProps } from "ra-ui-materialui/lib/layout/Title";
 import * as React from "react";
 import { FC } from "react";
-import { Show, SimpleShowLayout, TextField, ReferenceArrayField, SingleFieldList, ShowProps, BooleanField, NumberField, ImageField, ReferenceField } from 'react-admin';
+import { Show, SimpleShowLayout, TextField, ReferenceArrayField, SingleFieldList, ShowProps, BooleanField, NumberField, ImageField, ReferenceField, DeleteButton, ShowActionsProps, TopToolbar } from 'react-admin';
 
 const ProjectTitle: FC<TitleProps> = ({ record }) => {
     return <span>Project {record ? `"${record.title}"` : ''}</span>;
 };
 
+
+const ProjectActions: FC<ShowActionsProps> = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <DeleteButton basePath={basePath} record={data} resource={resource} />
+    </TopToolbar>
+);
+
 const ProjectShow: FC<ShowProps> = (props) => {
     return (
-        <Show {...props} title={<ProjectTitle />}>
+        <Show {...props} title={<ProjectTitle />} actions={<ProjectActions />}>
             <SimpleShowLayout>
                 <ImageField label="Cover picture" source="cover_picture_url" title="title" />
                 <TextField source="title" />

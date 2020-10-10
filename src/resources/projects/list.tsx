@@ -1,6 +1,6 @@
 import * as React from "react";
 import { FC } from "react";
-import { List, Datagrid, TextField, ListProps, BooleanField, Pagination, NumberField, ReferenceField } from "react-admin";
+import { List, Datagrid, TextField, ListProps, BooleanField, Pagination, NumberField, ReferenceField, DeleteButton } from "react-admin";
 
 const ProjectsList: FC<ListProps> = (props) => (
   <List {...props} pagination={<Pagination rowsPerPageOptions={[100]} />} bulkActionButtons={false}>
@@ -13,6 +13,7 @@ const ProjectsList: FC<ListProps> = (props) => (
       <TextField source="status" sortable={false} />
       <BooleanField source="published" sortable={false} />
       <NumberField source="likes" sortable={false} />
+      <DeleteButton />
     </Datagrid>
   </List>
 );
