@@ -4,7 +4,7 @@ import { List, Datagrid, TextField, ListProps, BooleanField, Pagination, NumberF
 
 const ProjectsList: FC<ListProps> = (props) => (
   <List {...props} pagination={<Pagination rowsPerPageOptions={[100]} />} bulkActionButtons={false}>
-    <Datagrid>
+    <Datagrid rowClick="show">
       <TextField source="id" sortable={false} />
       <TextField source="title" sortable={false} />
       <ReferenceField label="Owner" source="owner" reference="users" sortable={false}>

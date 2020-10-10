@@ -2,7 +2,8 @@ import * as React from "react";
 import { Admin, Resource } from "react-admin";
 import UsersList from "./resources/users/list";
 import ProjectsList from "./resources/projects/list";
-import dataProvider from "./providers/data-provider"
+import ProjectShow from "./resources/projects/show";
+import dataProvider from "./providers/data-provider";
 
 import "./App.css";
 
@@ -15,6 +16,7 @@ const App = () => (
     <Resource
       name="projects"
       list={ProjectsList}
+      show={ProjectShow}
     />
   </Admin>
 );
