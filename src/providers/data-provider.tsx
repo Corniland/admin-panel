@@ -53,7 +53,14 @@ export default {
     },
 
     update: async (resource: string, params: UpdateParams) => {
-        const { json } = await fetchApi.put(`/${resource}/${params.id}`);
+        const { id, ...bodyData } = params.data;
+
+        const { json } = await fetchApi.put(
+            `/${resource}/${params.id}`,
+            {
+                body: JSON.stringify(bodyData),
+            }
+        );
 
         return {
             data: json,
@@ -69,18 +76,17 @@ export default {
     },
 
     create: async (resource: string, params: CreateParams) => {
+        const { id, ...bodyData } = params.data;
+
         const { json } = await fetchApi.post(
             `/${resource}`,
             {
-                body: JSON.stringify(params.data),
+                body: JSON.stringify(bodyData),
             }
         );
 
         return {
-            data: {
-                ...params.data,
-                id: json.id
-            },
+            data: json,
         };
     },
 
