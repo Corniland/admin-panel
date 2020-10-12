@@ -5,6 +5,7 @@ import ProjectsList from "./resources/projects/list";
 import ProjectShow from "./resources/projects/show";
 import AdminsList from "./resources/admins/list";
 import AdminCreate from "./resources/admins/create";
+import AdminEdit from "./resources/admins/edit";
 import dataProvider from "./providers/data-provider";
 
 import "./App.css";
@@ -24,6 +25,7 @@ const App = () => (
       name="admins"
       list={AdminsList}
       create={AdminCreate}
+      edit={AdminEdit}
     />
   </Admin>
 );
