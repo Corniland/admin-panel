@@ -14,16 +14,21 @@ const UserShow: FC<ShowProps> = (props) => {
   return (
     <Show {...props} title=" ">
       <SimpleShowLayout>
-        <ReferenceArrayField reference="projects" source="liked_projects" sortable={false}>
+        <ReferenceManyField label="Project Created" reference="projects" target="owner">
           <SingleFieldList linkType="show">
             <ChipField source="title" />
           </SingleFieldList>
-        </ReferenceArrayField>
+        </ReferenceManyField>
         <ReferenceManyField label="Member Of" reference="projects" target="members">
           <SingleFieldList linkType="show">
             <ChipField source="title" />
           </SingleFieldList>
         </ReferenceManyField>
+        <ReferenceArrayField reference="projects" source="liked_projects" sortable={false}>
+          <SingleFieldList linkType="show">
+            <ChipField source="title" />
+          </SingleFieldList>
+        </ReferenceArrayField>
       </SimpleShowLayout>
     </Show>
   );
