@@ -1,6 +1,14 @@
 import * as React from "react";
 import { FC } from "react";
-import { Show, SimpleShowLayout, ReferenceArrayField, SingleFieldList, ChipField, ShowProps } from "react-admin";
+import {
+  ChipField,
+  ReferenceArrayField,
+  ReferenceManyField,
+  Show,
+  ShowProps,
+  SimpleShowLayout,
+  SingleFieldList,
+} from "react-admin";
 
 const UserShow: FC<ShowProps> = (props) => {
   return (
@@ -11,6 +19,11 @@ const UserShow: FC<ShowProps> = (props) => {
             <ChipField source="title" />
           </SingleFieldList>
         </ReferenceArrayField>
+        <ReferenceManyField label="Member Of" reference="projects" target="members">
+          <SingleFieldList>
+            <ChipField source="title" />
+          </SingleFieldList>
+        </ReferenceManyField>
       </SimpleShowLayout>
     </Show>
   );

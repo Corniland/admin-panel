@@ -50,13 +50,15 @@ export default {
   },
 
   getManyReference: async (resource: string, params: GetManyReferenceParams) => {
-    const { headers, json } = await fetchApi.get(`/${resource}`);
+    const { headers, json }: { headers: Headers; json: any[] } = await fetchApi.get(`/${resource}`);
+
+    const filteredJson = json.filter((document) => document[params.target].includes(params.id));
 
     const totalCountHeader = headers.get("x-total-count");
-    const total = totalCountHeader ? parseInt(totalCountHeader, 10) : json.length;
+    const total = totalCountHeader ? parseInt(totalCountHeader, 10) : filteredJson.length;
 
     return {
-      data: json,
+      data: filteredJson,
       total,
     };
   },
