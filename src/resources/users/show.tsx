@@ -20,7 +20,7 @@ const UserShow: FC<ShowProps> = (props) => {
           </SingleFieldList>
         </ReferenceArrayField>
         <ReferenceManyField label="Member Of" reference="projects" target="members">
-          <SingleFieldList>
+          <SingleFieldList linkType="show">
             <ChipField source="title" />
           </SingleFieldList>
         </ReferenceManyField>
