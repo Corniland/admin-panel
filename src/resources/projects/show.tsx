@@ -2,18 +2,19 @@ import { TitleProps } from "ra-ui-materialui/lib/layout/Title";
 import * as React from "react";
 import { FC } from "react";
 import {
-  Show,
-  SimpleShowLayout,
-  TextField,
-  ReferenceArrayField,
-  SingleFieldList,
-  ShowProps,
   BooleanField,
-  NumberField,
-  ImageField,
-  ReferenceField,
+  ChipField,
   DeleteButton,
+  ImageField,
+  NumberField,
+  ReferenceArrayField,
+  ReferenceField,
+  Show,
   ShowActionsProps,
+  ShowProps,
+  SimpleShowLayout,
+  SingleFieldList,
+  TextField,
   TopToolbar,
 } from "react-admin";
 
