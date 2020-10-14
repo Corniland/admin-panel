@@ -40,7 +40,7 @@ const ProjectShow: FC<ShowProps> = (props) => {
         </ReferenceField>
         <ReferenceArrayField reference="users" source="members">
           <SingleFieldList>
-            <TextField source="username" />
+            <ChipField source="username" />
           </SingleFieldList>
         </ReferenceArrayField>
         <TextField source="status" />
