@@ -6,11 +6,20 @@ export default {
     get: async (path: string, options?: fetchUtils.Options) => {
         const url = `${apiUrl}${path}`;
 
+        const auth = localStorage.getItem('auth') || '';
+        const { jwt } = JSON.parse(auth);
+
+        const headers = new Headers({
+            Accept: 'application/json',
+            Authorization: jwt,
+        });
+
         return await fetchUtils.fetchJson(
             url,
             {
                 ...options,
                 method: 'GET',
+                headers,
             }
         );
     },
@@ -18,11 +27,20 @@ export default {
     post: async (path: string, options?: fetchUtils.Options) => {
         const url = `${apiUrl}${path}`;
 
+        const auth = localStorage.getItem('auth') || '';
+        const { jwt } = JSON.parse(auth);
+
+        const headers = new Headers({
+            Accept: 'application/json',
+            Authorization: jwt,
+        });
+
         return await fetchUtils.fetchJson(
             url,
             {
                 ...options,
                 method: 'POST',
+                headers,
             }
         );
     },
@@ -30,11 +48,20 @@ export default {
     put: async (path: string, options?: fetchUtils.Options) => {
         const url = `${apiUrl}${path}`;
 
+        const auth = localStorage.getItem('auth') || '';
+        const { jwt } = JSON.parse(auth);
+
+        const headers = new Headers({
+            Accept: 'application/json',
+            Authorization: jwt,
+        });
+
         return await fetchUtils.fetchJson(
             url,
             {
                 ...options,
                 method: 'PUT',
+                headers,
             }
         );
     },
@@ -42,11 +69,20 @@ export default {
     delete: async (path: string, options?: fetchUtils.Options) => {
         const url = `${apiUrl}${path}`;
 
+        const auth = localStorage.getItem('auth') || '';
+        const { jwt } = JSON.parse(auth);
+
+        const headers = new Headers({
+            Accept: 'application/json',
+            Authorization: jwt,
+        });
+
         return await fetchUtils.fetchJson(
             url,
             {
                 ...options,
                 method: 'DELETE',
+                headers,
             }
         );
     }
