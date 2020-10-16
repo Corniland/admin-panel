@@ -7,11 +7,12 @@ import AdminsList from "./resources/admins/list";
 import AdminCreate from "./resources/admins/create";
 import AdminEdit from "./resources/admins/edit";
 import dataProvider from "./providers/data-provider";
+import authProvider from "./providers/auth-provider";
 
 import "./App.css";
 
 const App = () => (
-  <Admin dataProvider={dataProvider}>
+  <Admin dataProvider={dataProvider} authProvider={authProvider}>
     <Resource
       name="users"
       list={UsersList}
