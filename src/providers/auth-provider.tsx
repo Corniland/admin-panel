@@ -1,6 +1,8 @@
 import { AuthProvider } from "react-admin";
+import jwt_decode from "jwt-decode";
 
 import fetchAuth from "../utils/fetch-auth";
+import { string } from "prop-types";
 
 const authProvider: AuthProvider = {
   login: async (params: any) => {
@@ -36,6 +38,18 @@ const authProvider: AuthProvider = {
   },
 
   getPermissions: async (_params: any) => {},
+
+  getIdentity: async () => {
+    try {
+      const auth = localStorage.getItem("auth") || "";
+      const { jwt } = JSON.parse(auth);
+      const decodedJwt = jwt_decode<{ login: string; id: string }>(jwt);
+      return { id: decodedJwt.id, avatar: "", fullName: decodedJwt.login };
+    } catch (err) {
+      console.error(err);
+      return { id: "", avatar: "", fullName: "<Error>" };
+    }
+  },
 };
 
 export default authProvider;
