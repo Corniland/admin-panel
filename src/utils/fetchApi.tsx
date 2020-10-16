@@ -2,24 +2,28 @@ import { fetchUtils } from 'react-admin';
 
 const apiUrl = `${process.env.REACT_APP_SERVER_ENDPOINT}${process.env.REACT_APP_API_ROUTE}`;
 
+const getHeaders = () => {
+    const auth = localStorage.getItem('auth') || '';
+    const { jwt } = JSON.parse(auth);
+
+    const headers = new Headers({
+        Accept: 'application/json',
+        Authorization: jwt,
+    });
+
+    return headers;
+};
+
 export default {
     get: async (path: string, options?: fetchUtils.Options) => {
         const url = `${apiUrl}${path}`;
-
-        const auth = localStorage.getItem('auth') || '';
-        const { jwt } = JSON.parse(auth);
-
-        const headers = new Headers({
-            Accept: 'application/json',
-            Authorization: jwt,
-        });
 
         return await fetchUtils.fetchJson(
             url,
             {
                 ...options,
                 method: 'GET',
-                headers,
+                headers: getHeaders(),
             }
         );
     },
@@ -27,20 +31,12 @@ export default {
     post: async (path: string, options?: fetchUtils.Options) => {
         const url = `${apiUrl}${path}`;
 
-        const auth = localStorage.getItem('auth') || '';
-        const { jwt } = JSON.parse(auth);
-
-        const headers = new Headers({
-            Accept: 'application/json',
-            Authorization: jwt,
-        });
-
         return await fetchUtils.fetchJson(
             url,
             {
                 ...options,
                 method: 'POST',
-                headers,
+                headers: getHeaders(),
             }
         );
     },
@@ -48,20 +44,12 @@ export default {
     put: async (path: string, options?: fetchUtils.Options) => {
         const url = `${apiUrl}${path}`;
 
-        const auth = localStorage.getItem('auth') || '';
-        const { jwt } = JSON.parse(auth);
-
-        const headers = new Headers({
-            Accept: 'application/json',
-            Authorization: jwt,
-        });
-
         return await fetchUtils.fetchJson(
             url,
             {
                 ...options,
                 method: 'PUT',
-                headers,
+                headers: getHeaders(),
             }
         );
     },
@@ -69,20 +57,12 @@ export default {
     delete: async (path: string, options?: fetchUtils.Options) => {
         const url = `${apiUrl}${path}`;
 
-        const auth = localStorage.getItem('auth') || '';
-        const { jwt } = JSON.parse(auth);
-
-        const headers = new Headers({
-            Accept: 'application/json',
-            Authorization: jwt,
-        });
-
         return await fetchUtils.fetchJson(
             url,
             {
                 ...options,
                 method: 'DELETE',
-                headers,
+                headers: getHeaders(),
             }
         );
     }
