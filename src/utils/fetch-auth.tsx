@@ -1,53 +1,41 @@
-import { fetchUtils } from 'react-admin';
+import { fetchUtils } from "react-admin";
 
 const authUrl = `${process.env.REACT_APP_SERVER_ENDPOINT}${process.env.REACT_APP_AUTH_ROUTE}`;
 
 export default {
-    get: async (path: string, options?: fetchUtils.Options) => {
-        const url = `${authUrl}${path}`;
+  get: async (path: string, options?: fetchUtils.Options) => {
+    const url = `${authUrl}${path}`;
 
-        return await fetchUtils.fetchJson(
-            url,
-            {
-                ...options,
-                method: 'GET',
-            }
-        );
-    },
+    return await fetchUtils.fetchJson(url, {
+      ...options,
+      method: "GET",
+    });
+  },
 
-    post: async (path: string, options?: fetchUtils.Options) => {
-        const url = `${authUrl}${path}`;
+  post: async (path: string, options?: fetchUtils.Options) => {
+    const url = `${authUrl}${path}`;
 
-        return await fetchUtils.fetchJson(
-            url,
-            {
-                ...options,
-                method: 'POST',
-            }
-        );
-    },
+    return await fetchUtils.fetchJson(url, {
+      ...options,
+      method: "POST",
+    });
+  },
 
-    put: async (path: string, options?: fetchUtils.Options) => {
-        const url = `${authUrl}${path}`;
+  put: async (path: string, options?: fetchUtils.Options) => {
+    const url = `${authUrl}${path}`;
 
-        return await fetchUtils.fetchJson(
-            url,
-            {
-                ...options,
-                method: 'PUT',
-            }
-        );
-    },
+    return await fetchUtils.fetchJson(url, {
+      ...options,
+      method: "PUT",
+    });
+  },
 
-    delete: async (path: string, options?: fetchUtils.Options) => {
-        const url = `${authUrl}${path}`;
+  delete: async (path: string, options?: fetchUtils.Options) => {
+    const url = `${authUrl}${path}`;
 
-        return await fetchUtils.fetchJson(
-            url,
-            {
-                ...options,
-                method: 'DELETE',
-            }
-        );
-    }
-}
+    return await fetchUtils.fetchJson(url, {
+      ...options,
+      method: "DELETE",
+    });
+  },
+};
