@@ -13,21 +13,9 @@ import "./App.css";
 
 const App = () => (
   <Admin dataProvider={dataProvider} authProvider={authProvider}>
-    <Resource
-      name="users"
-      list={UsersList}
-    />
-    <Resource
-      name="projects"
-      list={ProjectsList}
-      show={ProjectShow}
-    />
-    <Resource
-      name="admins"
-      list={AdminsList}
-      create={AdminCreate}
-      edit={AdminEdit}
-    />
+    <Resource name="users" list={UsersList} />
+    <Resource name="projects" list={ProjectsList} show={ProjectShow} />
+    <Resource name="admins" list={AdminsList} create={AdminCreate} edit={AdminEdit} />
   </Admin>
 );
 

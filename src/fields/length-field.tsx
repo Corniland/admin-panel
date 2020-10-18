@@ -3,17 +3,15 @@ import { FC } from "react";
 import { FieldProps } from "react-admin";
 
 const LengthField: FC<FieldProps> = (props) => {
-    const { record, source } = props;
+  const { record, source } = props;
 
-    if (!record) {
-        return <div />;
-    }
+  if (!record) {
+    return <div />;
+  }
 
-    const length = source ? record[source].length : record.length;
+  const length = source ? record[source].length : record.length;
 
-    return (
-        <b>{length}</b>
-    );
-}
+  return <b>{length}</b>;
+};
 
 export default LengthField;

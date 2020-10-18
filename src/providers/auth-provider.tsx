@@ -2,7 +2,6 @@ import { AuthProvider } from "react-admin";
 import jwt_decode from "jwt-decode";
 
 import fetchAuth from "../utils/fetch-auth";
-import { string } from "prop-types";
 
 const authProvider: AuthProvider = {
   login: async (params: any) => {
