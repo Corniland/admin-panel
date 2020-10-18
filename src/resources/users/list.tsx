@@ -16,7 +16,7 @@ import LengthField from "../../fields/length-field";
 import UserShow from "./show";
 
 const rowStyle = (record: Record, _index: number) => ({
-  backgroundColor: record.banned ? "mistyrose" : "initial",
+  backgroundColor: record?.banned ? "mistyrose" : "initial",
 });
 
 const UsersList: FC<ListProps> = (props) => (
